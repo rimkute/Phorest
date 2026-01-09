@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phorest Migration Roadmap - Lanphier Day Spa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .meta-item {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .meta-item strong {
+            display: block;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .checkbox {
+            margin-right: 10px;
+            accent-color: #667eea;
+        }
+
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .checklist li {
+            list-style: none;
+            padding: 8px 0;
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .contact-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .contact-card strong {
+            color: #667eea;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+
+        .badge-extractable {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-not-extractable {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .data-category {
+            margin: 25px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .data-category strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .phase {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+        }
+
+        .phase h4 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .link-button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 5px 5px 5px 0;
+            transition: background 0.3s;
+            font-size: 0.95em;
+        }
+
+        .link-button:hover {
+            background: #764ba2;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        .last-updated {
+            color: #999;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .meta-info {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .header {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Phorest Migration Roadmap</h1>
+            <p>Lanphier Day Spa | Project 109052</p>
+        </div>
+
+        <div class="meta-info">
+            <div class="meta-item">
+                <strong>Status</strong>
+                In Progress
+            </div>
+            <div class="meta-item">
+                <strong>Start Date</strong>
+                January 8, 2026
+            </div>
+            <div class="meta-item">
+                <strong>Go-Live Date</strong>
+                March 3, 2026
+            </div>
+            <div class="meta-item">
+                <strong>Onboarding Specialist</strong>
+                Jesus Morales
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Timeline Section -->
+            <section>
+                <h2>📅 Migration Timeline</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Milestone</th>
+                            <th>Key Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Today (1/8/26)</strong></td>
+                            <td>Intro Call Follow-Up</td>
+                            <td>Received onboarding docs, training links, initial login credentials</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tue 1/13/26</strong></td>
+                            <td>First Data Import</td>
+                            <td>Services, inventory, staff members migrated from Meevo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thu 1/15/26</strong></td>
+                            <td>System Check Zoom Meeting</td>
+                            <td>Review imported data, create action item list, set up Phorest Pay</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tue 3/3/26</strong></td>
+                            <td>Final Data Import</td>
+                            <td>Time-sensitive data (appointments, clients, client data) imported</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tue 3/3/26</strong></td>
+                            <td>Phorest Go Live Day</td>
+                            <td>Launch & training, enable online booking & automated messaging</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>⚠️ Critical Timeline Notes:</strong>
+                    <ul>
+                        <li>Any new services, staff, or items added to Meevo after <strong>1/13/26</strong> will NOT be in Phorest unless manually added</li>
+                        <li>Any appointments/clients added after <strong>3/3/26</strong> will NOT be imported</li>
+                        <li>No past appointments will be imported—only future appointments from 3/3/26 onward</li>
+                        <li>Online booking must be turned off in Meevo before 3/3/26 final import</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- System Access Section -->
+            <section>
+                <h2>🔐 System Access</h2>
+
+                <h3>Phorest Portal</h3>
+                <p><a href="https://my.phorest.com" class="link-button">my.phorest.com</a></p>
+
+                <h3>Initial Login Credentials</h3>
+                <div class="contact-card">
+                    <p><strong>Username:</strong> phorest@lanphierdayspa.com</p>
+                    <p><strong>Password:</strong> Phorest123!</p>
+                    <p><strong>PIN (if needed):</strong> 7268</p>
+                    <p><strong>Salon ID:</strong> 109052</p>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ WARNING:</strong> Do NOT add information until first data import (1/13/26) is complete.
+                </div>
+            </section>
+
+            <!-- Onboarding Phases -->
+            <section>
+                <h2>📋 Onboarding Phases</h2>
+
+                <div class="phase">
+                    <h4>Phase 1: First Data Import (Tuesday, January 13, 2026)</h4>
+                    <p><strong>Responsibility:</strong> Phorest data migrations specialist</p>
+                    <p><strong>Action Required:</strong> None from Lanphier</p>
+                    <p><strong>What Gets Imported:</strong> Services, inventory, staff members</p>
+                    <p><strong>What's Not Imported:</strong> Any Meevo entries added after this date</p>
+                </div>
+
+                <div class="phase">
+                    <h4>Phase 2: System Check Meeting (Thursday, January 15, 2026)</h4>
+                    <p><strong>Duration:</strong> ~60 minutes (Zoom)</p>
+                    <p><strong>Requirements:</strong> Lanphier admin must be at a computer</p>
+                    <p><strong>Agenda:</strong></p>
+                    <ul>
+                        <li>Review data from first import</li>
+                        <li>Review setup form information</li>
+                        <li>Create action item list for missing configuration items:
+                            <ul>
+                                <li>Staff leveled pricing per service</li>
+                                <li>Staff custom timing per service</li>
+                                <li>Staff login information</li>
+                                <li>Inventory items</li>
+                            </ul>
+                        </li>
+                        <li>Set up Phorest Pay account (if applicable) & verify verification process</li>
+                        <li>Discuss hardware requirements (receipt printer, barcode scanner, cash drawer)</li>
+                    </ul>
+                </div>
+
+                <div class="phase">
+                    <h4>Phase 3: Training (Before March 3, 2026)</h4>
+                    <p>Choose one or both training options:</p>
+
+                    <h4 style="margin-top: 15px;">Option A: Phorest Academy (Self-Paced)</h4>
+                    <ul>
+                        <li>Online education platform for busy professionals</li>
+                        <li>Register at: <a href="https://phorest.learnupon.com/" class="link-button">phorest.learnupon.com</a></li>
+                        <li>Click 'Register Now' → use Salon ID: <strong>109052</strong></li>
+                        <li>Learn at your own pace with on-demand courses</li>
+                    </ul>
+
+                    <h4 style="margin-top: 15px;">Option B: Virtual Instructor-Led Training</h4>
+                    <p><strong>Basics System Training:</strong> Tuesdays & Thursdays</p>
+                    <ul>
+                        <li>Tuesday: <a href="https://phorest.zoom.us/j/82855044181" class="link-button">Zoom Link</a></li>
+                        <li>Thursday: <a href="https://phorest.zoom.us/j/87449868040" class="link-button">Zoom Link</a></li>
+                    </ul>
+                    <p><strong>Phorest Go 2.0 Training:</strong> Thursdays</p>
+                    <ul>
+                        <li><a href="https://phorest.zoom.us/j/86084134181" class="link-button">Zoom Link</a></li>
+                    </ul>
+                </div>
+
+                <div class="phase">
+                    <h4>Phase 4: Final Data Import (Tuesday, March 3, 2026)</h4>
+                    <p><strong>Responsibility:</strong> Phorest data migrations specialist</p>
+                    <p><strong>What Gets Imported:</strong> Appointments, clients, client data (future appointments only from this date forward)</p>
+                    <p><strong>Action Required from Lanphier:</strong> Turn off online booking in Meevo before this date</p>
+                    <p><strong>Important:</strong> No past appointments will be imported</p>
+                </div>
+
+                <div class="phase">
+                    <h4>Phase 5: Phorest Go Live (Tuesday, March 3, 2026)</h4>
+                    <p><strong>Duration:</strong> ~30 minutes (Zoom)</p>
+                    <p><strong>Requirements:</strong> Lanphier admin must be at a computer</p>
+                    <p><strong>Agenda:</strong></p>
+                    <ul>
+                        <li>System is live and ready for use</li>
+                        <li>Discuss any staff questions about the system</li>
+                        <li>Enable online booking link (optional)</li>
+                        <li>Enable automated messaging (appointment reminders, confirmations, etc.)</li>
+                        <li>Final Q&A</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Action Items -->
+            <section>
+                <h2>🎯 Action Items for Lanphier</h2>
+
+                <h3>Immediate</h3>
+                <div class="checklist">
+                    <ul>
+                        <li><input type="checkbox" class="checkbox"> Determine plastic gift cards vendor</li>
+                        <li><input type="checkbox" class="checkbox"> Check hardware requirements for receipt printer, barcode scanner, cash drawer</li>
+                    </ul>
+                </div>
+
+                <h3>Before Training (by 3/3/26)</h3>
+                <div class="checklist">
+                    <ul>
+                        <li><input type="checkbox" class="checkbox"> Register for Phorest Academy or schedule virtual training sessions</li>
+                        <li><input type="checkbox" class="checkbox"> Complete all staff training</li>
+                    </ul>
+                </div>
+
+                <h3>Branded App Setup (CRITICAL)</h3>
+                <div class="checklist">
+                    <ul>
+                        <li><input type="checkbox" class="checkbox"> Create Apple Developer Account</li>
+                        <li><input type="checkbox" class="checkbox"> Provide: Business email, D-U-N-S Number, website, Apple ID</li>
+                        <li><input type="checkbox" class="checkbox"> Provide: Logo (minimum 2066x2066 pixels)</li>
+                        <li><input type="checkbox" class="checkbox"> Provide: 3 app name choices for App Store/Play Store</li>
+                        <li><input type="checkbox" class="checkbox"> Invite Phorest as Admin: appteamusa1@zanadoo.me (Admin role)</li>
+                    </ul>
+                </div>
+
+                <h3>Prepare for System Check Meeting (1/15/26)</h3>
+                <div class="checklist">
+                    <ul>
+                        <li><input type="checkbox" class="checkbox"> Have all setup form information ready</li>
+                        <li><input type="checkbox" class="checkbox"> Compile list of staff members with their pricing/timing needs</li>
+                        <li><input type="checkbox" class="checkbox"> Prepare inventory list if not already provided</li>
+                    </ul>
+                </div>
+
+                <h3>Before Final Data Import (3/3/26)</h3>
+                <div class="checklist">
+                    <ul>
+                        <li><input type="checkbox" class="checkbox"> Turn off online booking in Meevo</li>
+                        <li><input type="checkbox" class="checkbox"> Complete all staff training</li>
+                        <li><input type="checkbox" class="checkbox"> Set up staff login credentials</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Contacts -->
+            <section>
+                <h2>📞 Support Contacts</h2>
+
+                <h3>Phorest Team</h3>
+
+                <div class="contact-card">
+                    <strong>Jesus Morales (Onboarding Specialist)</strong>
+                    <p>Hours: M-F, 10am-6pm EST</p>
+                    <p><a href="https://calendly.com/jesus-morales-phorest/30min" class="link-button">Schedule Meeting</a></p>
+                </div>
+
+                <div class="contact-card">
+                    <strong>Andrea (Coordinator)</strong>
+                    <p>Introduced before Go-Live</p>
+                    <p>Will be main point of contact post-launch for feature adoption & ongoing support</p>
+                </div>
+
+                <div class="contact-card">
+                    <strong>Phorest Features Activation Team (Branded App setup)</strong>
+                    <p>Email: appteamusa1@zanadoo.me</p>
+                </div>
+
+                <h3>Lanphier Business Contact</h3>
+
+                <div class="contact-card">
+                    <strong>Jerga Rimkute (Owner)</strong>
+                    <p>Email: <a href="mailto:admin@lanphier.us">admin@lanphier.us</a></p>
+                    <p>Phone: <a href="tel:+12034240201">(203) 424-0201</a></p>
+                </div>
+            </section>
+
+            <!-- Data Migration -->
+            <section>
+                <h2>📊 Data Migration Details</h2>
+                <p><em>Last tested: December 22, 2025</em></p>
+
+                <h3>What CAN Be Extracted from Meevo</h3>
+
+                <div class="data-category">
+                    <strong>👥 Clients (treated as new clients upon import)</strong>
+                    <p><span class="badge badge-extractable">✅ Extractable:</span> Client ID, First/Last Name, Gender, Mobile Number, Email, Birthday, Notes (2-3 days)</p>
+                    <p><span class="badge badge-not-extractable">❌ Not Extractable:</span> Landline, Home Address, First Visit, SMS Opt-in, Outstanding Balance, Loyalty Points</p>
+                </div>
+
+                <div class="data-category">
+                    <strong>📅 Appointments</strong>
+                    <p><span class="badge badge-extractable">✅ Extractable:</span> Date, Start Time, Staff Member, Client, Service, End Times (duration)</p>
+                    <p><span class="badge badge-not-extractable">❌ Not Extractable:</span> Future Appointment Notes, Add-on services</p>
+                </div>
+
+                <div class="data-category">
+                    <strong>📝 Service History (appears 2-3 business days post Go Live)</strong>
+                    <p><span class="badge badge-extractable">✅ Extractable:</span> Client ID, Service Date, Staff, Service, Visit Notes</p>
+                    <p><span class="badge badge-not-extractable">❌ Not Extractable:</span> Fee information</p>
+                </div>
+
+                <div class="data-category">
+                    <strong>👨‍💼 Staff</strong>
+                    <p><span class="badge badge-extractable">✅ Extractable:</span> Staff ID, Name, Category, Mobile, Email</p>
+                    <p><span class="badge badge-not-extractable">❌ Not Extractable:</span> Per-staff pricing, custom timing, qualifications, break times</p>
+                </div>
+
+                <div class="data-category">
+                    <strong>💇 Services</strong>
+                    <p><span class="badge badge-extractable">✅ Extractable:</span> Service ID, Category, Name, Duration, Price</p>
+                    <p><span class="badge badge-not-extractable">❌ Not Extractable:</span> Per-staff duration adjustments</p>
+                </div>
+
+                <div class="data-category">
+                    <strong>📦 Inventory/Stock</strong>
+                    <p><span class="badge badge-extractable">✅ Extractable:</span> Product ID, Category, Name, Volume, Barcode, Item Code, Retail Price, Cost Price, Current Quantity</p>
+                    <p><span class="badge badge-not-extractable">❌ Not Extractable:</span> Brand/Manufacturer, Max/Min Levels, Stock Type</p>
+                </div>
+
+                <h3 style="margin-top: 30px;">What CANNOT Be Extracted from Meevo</h3>
+                <ul>
+                    <li>Client Photos</li>
+                    <li>Consultation Forms</li>
+                    <li>Commission structure</li>
+                    <li>Courses/Series</li>
+                    <li>Departments</li>
+                    <li>Rooms & Machines</li>
+                    <li>Per-Staff Pricing & Gap Times</li>
+                    <li>Packages</li>
+                    <li>Staff Rosters</li>
+                    <li>Product History</li>
+                    <li>Staff Breaks</li>
+                    <li>Vouchers/Gift Certificates</li>
+                    <li>Staff Qualifications</li>
+                    <li>Add-ons (will not migrate as individual blocks)</li>
+                </ul>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important Data Migration Reminders:</strong>
+                    <ul>
+                        <li>Notes & Service History require <strong>2-3 business days</strong> after final import to appear</li>
+                        <li>Only <strong>future appointments</strong> from Go Live date onward will be imported</li>
+                        <li>No past appointment history will transfer</li>
+                        <li>Add-ons from Meevo won't migrate as individual blocks—will need manual setup</li>
+                        <li>Clients are imported as "new clients" (no historical relationship data preserved)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Key Success Factors -->
+            <section>
+                <h2>💡 Key Success Factors</h2>
+                <ol>
+                    <li><strong>Timing is Critical:</strong> Any changes made in Meevo after cutoff dates won't transfer to Phorest</li>
+                    <li><strong>Staff Training Required:</strong> All staff should complete training before go-live day</li>
+                    <li><strong>Hardware Check:</strong> Ensure all POS hardware meets Phorest requirements</li>
+                    <li><strong>Backup Strategy:</strong> Keep Meevo accessible during transition period in case of issues</li>
+                    <li><strong>Online Booking:</strong> Disable in Meevo before final import (3/3/26) to avoid double bookings</li>
+                    <li><strong>Branded App Priority:</strong> Submit setup information promptly—features team has several steps to complete before go-live</li>
+                    <li><strong>Plan for Data Gaps:</strong> Staff per-service pricing/timing, add-on services, and historical appointment data won't transfer—plan for manual setup or workarounds</li>
+                </ol>
+            </section>
+
+        </div>
+
+        <div class="footer">
+            <p class="last-updated">Last Updated: January 8, 2026</p>
+            <p>Reference Documents: Lanphier-109052- Intro Call Slide Deck.pdf | MeevoExtractableData.pdf</p>
+        </div>
+    </div>
+</body>
+</html>
